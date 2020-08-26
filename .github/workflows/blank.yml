@@ -19,12 +19,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      env:
-        GREETING: ${{ secrets.MYSECRET }} 
-      run: ./echoarg.sh Hello, $GREETING!
+    - run: echo ${{ secrets.MYSECRET }} > secret.txt
 
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: secret.txt
